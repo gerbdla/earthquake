@@ -13,14 +13,16 @@ module V1
       end
     end
 
-    def add_words
-      articles = [
-          {id: 123, name: 'The Things'},
-      ]
+    def create
+      @json = JSON.parse(request.body.read)
+
+      @json["words"].each do |word|
+        Word.create!(word: word)
+      end
 
       respond_to do |format|
-        format.any(:articles_json, :json) do
-          render json: articles
+        format.any(:words_json, :json) do
+          render json: "Success"
         end
       end
     end

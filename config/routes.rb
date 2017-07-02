@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   def api_version(version, &routes)
     api_constraint = ApiConstraint.new(version: version)
     scope(module: "v#{version}", constraints: api_constraint, &routes)
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   api_version(1) do
     resources :palindrome, only: :index
     resources :anagram, only: :index
+    resources :words, only: :create
   end
 
 

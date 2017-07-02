@@ -1,1 +1,1 @@
-Mime::Type.register 'application/vnd.articles+json', :articles_json
+Mime::Type.register 'application/vnd.words+json', :words_json
