@@ -5,10 +5,9 @@ Rails.application.routes.draw do
   end
 
   api_version(1) do
-    resources :articles, only: :index
+    resources :palindrome, only: :index
+    resources :anagram, only: :index
   end
 
-  api_version(2) do
-    resources :articles, only: :index
-  end
+
 end
