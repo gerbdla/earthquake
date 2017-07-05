@@ -1,18 +1,6 @@
 module V1
   class WordsController < ApplicationController
 
-    def delete_word
-      articles = [
-          {id: 123, name: 'The Things'},
-      ]
-
-      respond_to do |format|
-        format.any(:articles_json, :json) do
-          render json: articles
-        end
-      end
-    end
-
     def create
       @json = JSON.parse(request.body.read)
 
@@ -22,23 +10,35 @@ module V1
 
       respond_to do |format|
         format.any(:words_json, :json) do
-          render json: "Success"
+          render json: "Words Added!"
         end
       end
     end
 
+    def delete
+      @json = JSON.parse(request.body.read)
 
-    def delete_words
-      articles = [
-          {id: 123, name: 'The Things'},
-      ]
+      @json["words"].each do |word|
+        Word.delete!(word: word)
+      end
 
       respond_to do |format|
-        format.any(:articles_json, :json) do
-          render json: articles
+        format.any(:words_json, :json) do
+          render json: "Words deleted!"
         end
       end
     end
-  end
 
+    def count
+      word_count = Word.all.uniq.count
+      respond_to do |format|
+        format.any(:words_json, :json) do
+          render json: "word_count: #{word_count}"
+        end
+      end
+    end
+
+
+
+  end
 end

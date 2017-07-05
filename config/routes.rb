@@ -6,9 +6,16 @@ Rails.application.routes.draw do
   end
 
   api_version(1) do
-    resources :palindrome, only: :index
-    resources :anagram, only: :index
-    resources :words, only: :create
+    resources :palindrome, only: [:delete] do
+    end
+    resources :anagram, only: [:delete] do
+    end
+    resources :words, only: [:delete] do
+    end
+
+    get '/words/count', to: 'words#count'
+    get '/palindromes/count', to: 'palindrome#count'
+    get 'anagrams/count', to: 'anagram#count'
   end
 
 
