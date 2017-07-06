@@ -2,15 +2,12 @@ module V1
   class AnagramController < ApplicationController
 
     def word
-      compare_word = params[:word]
-      words_array = []
-      Word.all.uniq.each do |word|
-        count = 0
-        if Anagram.is_anagram?(compare_word, word)
-          words_array << word
-        end
+      @json = JSON.parse(request.body.read)
+      compare_word = @json["word"]
+      puts "this is the compare word"
+      puts compare_word
 
-      end
+      words_array = Anagram.anagrams_of_word(compare_word)
 
       respond_to do |format|
         format.any(:words_json, :json) do
@@ -20,15 +17,8 @@ module V1
     end
 
     def count
-      Word.all.uniq.each do |word|
-        compare_word = word
-        count = 0
-        Word.all.uniq.each do |word|
-          if Anagram.is_anagram?(compare_word, word)
-            count += 1
-          end
-        end
-      end
+
+      word_count = Anagram.count
 
       respond_to do |format|
         format.any(:words_json, :json) do

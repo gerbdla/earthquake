@@ -5,7 +5,7 @@ module V1
       @json = JSON.parse(request.body.read)
 
       @json["words"].each do |word|
-        Word.create!(word: word)
+        Word.where(word: word).first_or_create
       end
 
       respond_to do |format|
