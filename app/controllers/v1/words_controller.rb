@@ -30,7 +30,7 @@ module V1
     end
 
     def count
-      word_count = Word.all.uniq.count
+      word_count = Word.count_words
       respond_to do |format|
         format.any(:words_json, :json) do
           render json: "word_count: #{word_count}"
