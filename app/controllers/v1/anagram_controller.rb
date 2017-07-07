@@ -4,8 +4,6 @@ module V1
     def word
       @json = JSON.parse(request.body.read)
       compare_word = @json["word"]
-      puts "this is the compare word"
-      puts compare_word
 
       words_array = Anagram.anagrams_of_word(compare_word)
 
