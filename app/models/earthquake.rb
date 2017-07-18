@@ -7,8 +7,6 @@ class Earthquake
   LALONG = -118.2437
 
   def earthquakes_felt(number_of_cities, number_of_days=30)
-    puts "number of days"
-    puts number_of_days
     file = open_csv
 
     file.each do |row|
@@ -40,9 +38,7 @@ class Earthquake
 
 
   private
-
-
-
+  
     def calc_a(dlat, lat1, lat2, dlon)
       (Math.sin(rpd(dlat)/2))**2 + Math.cos(rpd(lat1)) * Math.cos((rpd(lat2))) * (Math.sin(rpd(dlon)/2))**2
     end
