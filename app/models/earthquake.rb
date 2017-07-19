@@ -24,7 +24,7 @@ class Earthquake
           earthquake_container_hash["time"] = row["time"]
           earthquake_container_hash["place"] = row["place"]
           earthquake_container_hash["magnitude"] = row["mag"]
-          earthquake_container_hash["distance_from_los_angeles"] = distance_from_los_angeles + "miles"
+          earthquake_container_hash["distance_from_los_angeles"] = "#{distance_from_los_angeles} miles"
           earthquake_container_array << earthquake_container_hash
           earthquake_container_hash =  {}
 
