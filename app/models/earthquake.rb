@@ -6,16 +6,34 @@ class Earthquake
   LALAT = 34.0522
   LALONG = -118.2437
 
-  def earthquakes_felt(number_of_cities, number_of_days=30)
+  def earthquakes_felt(number_of_times, number_of_days=30)
     file = open_csv
 
+    earthquake_container_hash = {}
+    earthquake_container_array = []
+    counter = 1
     file.each do |row|
       num_of_days = (Date.today - Date.parse(row["time"])).round
 
       if num_of_days <= number_of_days
-        puts calculate_distance(LALAT, LALONG, row["latitude"].to_i, row["longitude"].to_i)
+        distance_from_los_angeles = calculate_distance(LALAT, LALONG, row["latitude"].to_i, row["longitude"].to_i).to_i
+        if distance_from_los_angeles <= 500
+          break if counter == number_of_times + 1
+
+          earthquake_container_hash["key"] = counter
+          earthquake_container_hash["time"] = row["time"]
+          earthquake_container_hash["place"] = row["place"]
+          earthquake_container_hash["magnitude"] = row["magnitude"]
+          earthquake_container_hash["distance_from_los_angeles"] = distance_from_los_angeles
+          earthquake_container_array << earthquake_container_hash
+          earthquake_container_hash =  {}
+
+          counter = counter +  1
+        end
       end
     end
+
+    earthquake_container_array
   end
 
   def calculate_distance(*coordinates)
@@ -32,7 +50,6 @@ class Earthquake
 
 
     RADIUS_IN_MILES * c
-
 
   end
 
