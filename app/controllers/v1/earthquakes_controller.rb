@@ -3,6 +3,7 @@ module V1
 
     def earthquake
       @json = JSON.parse(request.body.read)
+      puts @json.inspect
       puts @json["earthquakes"]["begin_date"]
       puts @json["earthquakes"]["end_date"]
       earthquake = Earthquake.new
@@ -13,10 +14,11 @@ module V1
 
       number_of_days = Date.parse(end_date) - Date.parse(begin_date)
       earthquakes =  earthquake.earthquakes_felt(number_of_earthquakes, number_of_days)
-
+      puts "earthquakes"
+      puts earthquakes.inspect
 
       respond_to do |format|
-        format.any(:earthquakes_json, :json) do
+        format.any(:json, :json) do
           render json: earthquakes.to_json
         end
       end
