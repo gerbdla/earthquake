@@ -1,17 +1,31 @@
-API that returns the first n earthquakes within a 500 mile radius of Los Angeles, California.  Returns Json array
+Rails Api Version Of Earthquake Counter
+===========================
 
- {
-"key": 1,
-"time": "2017-07-16T19:35:38.560Z",
-"place": "29km WSW of Hawthorne, Nevada",
-"magnitude": "1.3",
-"distance_from_los_angeles": "272 miles"
-},
-  {
-"key": 2,
-"time": "2017-07-16T19:32:57.310Z",
-"place": "15km SE of Mammoth Lakes, California",
-"magnitude": "1.39",
-"distance_from_los_angeles": "203 miles"
-},
-  {
+T
+
+## Getting Started
+
+1. Clone the repo
+
+   ```
+   https://github.com/gerbdla/earthquake.git
+   $ cd earthquakes
+   ```
+
+2. Install dependencies
+
+   ```
+   $ bundle install
+   ```
+
+3. Watch the specs pass
+
+   ```
+   $ bin/rspec
+   ... 0 failures
+   ```
+
+
+## What's interesting?
+
+There are a few interesting things to note in earthquake counter

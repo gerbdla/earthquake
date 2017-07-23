@@ -3,19 +3,15 @@ module V1
 
     def earthquake
       @json = JSON.parse(request.body.read)
-      puts @json.inspect
-      puts @json["earthquakes"]["begin_date"]
-      puts @json["earthquakes"]["end_date"]
       earthquake = Earthquake.new
 
-      begin_date = @json["earthquakes"]["begin_date"]
-      end_date = @json["earthquakes"]["end_date"]
-      number_of_earthquakes = @json["earthquakes"]["number"]
+      begin_date = Date.strptime(@json["earthquakes"]["begin_date"], "%m/%d/%Y")
+      end_date = Date.strptime(@json["earthquakes"]["end_date"], "%m/%d/%Y")
 
-      number_of_days = Date.parse(end_date) - Date.parse(begin_date)
-      earthquakes =  earthquake.earthquakes_felt(number_of_earthquakes, number_of_days)
-      puts "earthquakes"
-      puts earthquakes.inspect
+      number_of_earthquakes = @json["earthquakes"]["number"]
+      number_of_days = TimeDifference.between(begin_date, end_date).in_days
+
+      earthquakes =  earthquake.earthquakes_felt(number_of_earthquakes, number_of_days.to_i)
 
       respond_to do |format|
         format.any(:json, :json) do
