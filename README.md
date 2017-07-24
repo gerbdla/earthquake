@@ -1,7 +1,7 @@
 Rails Api Version Of Earthquake Counter
 ===========================
 
-T
+
 
 ## Getting Started
 
