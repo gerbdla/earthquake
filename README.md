@@ -18,7 +18,18 @@ T
    $ bundle install
    ```
 
-3. Watch the specs pass
+3. Create the test db
+    ```
+    $ rake db:create RAILS_ENV=test
+    ```
+
+4. Seed the test db
+    ```
+    $ rake db:seed RAILS_ENV=test
+    ```
+
+
+5. Watch the specs pass
 
    ```
    $ bin/rspec
@@ -26,6 +37,3 @@ T
    ```
 
 
-## What's interesting?
-
-There are a few interesting things to note in earthquake counter
