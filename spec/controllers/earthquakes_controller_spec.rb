@@ -4,24 +4,12 @@ require 'request_spec_helper'
 describe V1::EarthquakesController, :type => :controller do
   describe 'POST #earthquake' do
 
-    it "it should return 5 earthquakes" do
+
+    it "should return 10 earthquakes between two given dates" do
       request.env["HTTP_ACCEPT"] = 'application/json'
 
       @request.env['CONTENT_TYPE'] = 'application/json'
-      @request_json = {"earthquakes" => {"begin_date" => "01/01/2001", "end_date" => "10/11/2010", "number" => 5}}
-
-      post :earthquake, params: @request_json
-
-      json = JSON.parse(response.body)
-
-      expect(json.count).to eq(5)
-    end
-
-    it "it should return 10 earthquakes" do
-      request.env["HTTP_ACCEPT"] = 'application/json'
-
-      @request.env['CONTENT_TYPE'] = 'application/json'
-      @request_json = {"earthquakes" => {"begin_date" => "01/01/2001", "end_date" => "10/11/2010", "number" => 10}}
+      @request_json = {"earthquakes" => {"begin_date" => "07/15/2017", "end_date" => "07/16/2017", "number" => 10}}
 
       post :earthquake, params: @request_json
 
@@ -30,22 +18,61 @@ describe V1::EarthquakesController, :type => :controller do
       expect(json.count).to eq(10)
     end
 
-    # it "it return the number of earthquakes within a timeframe" do
-    #   request.env["HTTP_ACCEPT"] = 'application/json'
-    #
-    #   @request.env['CONTENT_TYPE'] = 'application/json'
-    #   @request_json = {"earthquakes" => {"begin_date" => "7/14/2017", "end_date" => "7/15/2017", "number" => 10}}
-    #
-    #   post :earthquake, params: @request_json
-    #
-    #   json = JSON.parse(response.body)
-    #   puts json
-    #   puts json[1][:time]
-    #
-    #   expect(json.count).to eq(2)
-    #   expect(json[1]["time"]).to eq("2017-07-16T19:32:57.310Z")
-    #
-    # end
+    it "should return time, place, magnitude and distance from los angeles" do
+      request.env["HTTP_ACCEPT"] = 'application/json'
+
+      @request.env['CONTENT_TYPE'] = 'application/json'
+      @request_json = {"earthquakes" =>{"begin_date" => "7/15/2017", "end_date" => "7/16/2017", "number" => 10}}
+
+      post :earthquake, params: @request_json
+
+      json = JSON.parse(response.body)
+      expect(json.count).to eq(10)
+      expect(json[0]["time"]).to eq( "07.15.2017 12:57:49 AM")
+      expect(json[0]["place"]).to eq("17km SW of Oasis, CA")
+      expect(json[0]["distance_from_los_angeles"]).to eq("148 miles")
+      expect(json[0]["magnitude"]).to eq(2.3)
+    end
+
+
+    it "should return earthquakes within a 30 day period if no dates are supplied" do
+      request.env["HTTP_ACCEPT"] = 'application/json'
+
+      @request.env['CONTENT_TYPE'] = 'application/json'
+      @request_json = {"earthquakes" => {"begin_date" => "07/01/2017", "end_date" => "07/24/2017", "number" => 10}}
+
+      post :earthquake, params: @request_json
+
+      json = JSON.parse(response.body)
+
+      expect(json.count).to eq(10)
+      expect(json[0]["time"]).to eq("07.01.2017 04:22:50 AM")
+      expect(json[0]["place"]).to eq("29km E of King City, California")
+      expect(json[0]["distance_from_los_angeles"]).to eq("167 miles")
+      expect(json[0]["magnitude"]).to eq(2.39)
+
+    end
+
+    it "should return 10 earthquakes in the last 30 days" do
+      request.env["HTTP_ACCEPT"] = 'application/json'
+
+      @request.env['CONTENT_TYPE'] = 'application/json'
+      @request_json = {"earthquakes" => {"begin_date" => "", "end_date" => "", "number" => 10}}
+
+      post :earthquake, params: @request_json
+
+      json = JSON.parse(response.body)
+
+      puts json
+      puts json[1][:time]
+
+      expect(json.count).to eq(10)
+      expect(json[0]["time"]).to eq("06.24.2017 02:26:57 AM")
+      expect(json[0]["place"]).to eq( "16km ESE of Lake Isabella, CA")
+      expect(json[0]["distance_from_los_angeles"]).to eq("66 miles")
+      expect(json[0]["magnitude"]).to eq(1.24)
+
+    end
 
   end
 end

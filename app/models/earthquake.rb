@@ -1,39 +1,35 @@
-class Earthquake
-
+class Earthquake < ApplicationRecord
   include EarthquakeCsv
   RADIUS_IN_MILES = 3956
   RAD_PER_DEG = Math::PI / 180
   LALAT = 34.0522
   LALONG = -118.2437
 
-  def earthquakes_felt(number_of_times, number_of_days=30)
+  def earthquakes_felt(number_of_times, begin_date, end_date)
     file = open_csv
 
     earthquake_container_hash = {}
     earthquake_container_array = []
     counter = 1
-    file.each do |row|
-      num_of_days = (Date.today - Date.parse(row["time"])).round
+    Earthquake.where("time BETWEEN ? AND ?", begin_date, end_date).where("mag NOT NULL").order("time asc").all.each do |row|
+      earthquake_time = row.time
 
-      if num_of_days <= number_of_days
-        distance_from_los_angeles = calculate_distance(LALAT, LALONG, row["latitude"].to_i, row["longitude"].to_i).to_i
-        if distance_from_los_angeles <= 500
+      if earthquake_time.between?(begin_date, end_date)
+        distance_from_los_angeles = calculate_distance(LALAT, LALONG, row.latitude.to_i, row.longitude.to_i).to_i
+
+        if distance_from_los_angeles <= (row.mag.round * 100)
+
           break if counter == number_of_times + 1
-
-          earthquake_container_hash["key"] = counter
-          earthquake_container_hash["time"] = row["time"]
-          earthquake_container_hash["place"] = row["place"]
-          earthquake_container_hash["magnitude"] = row["mag"]
-          earthquake_container_hash["distance_from_los_angeles"] = "#{distance_from_los_angeles} miles"
+          create_record(earthquake_container_hash, row, distance_from_los_angeles, earthquake_container_array)
           earthquake_container_array << earthquake_container_hash
-          earthquake_container_hash =  {}
-
-          counter = counter +  1
+          earthquake_container_hash = {}
+          counter = counter + 1
         end
       end
     end
 
     earthquake_container_array
+
   end
 
   def calculate_distance(*coordinates)
@@ -65,5 +61,13 @@ class Earthquake
       num * RAD_PER_DEG
     end
 
+    def create_record(earthquake_container_hash, row, distance, earthquake_container_array)
+      earthquake_container_hash["key"] = row.earthquake_id
+      earthquake_container_hash["time"] = row.time.strftime("%m.%d.%Y %r")
+      earthquake_container_hash["place"] = row.place
+      earthquake_container_hash["magnitude"] = row.mag
+      earthquake_container_hash["distance_from_los_angeles"] = "#{distance} miles"
+      earthquake_container_hash
+    end
 
 end
