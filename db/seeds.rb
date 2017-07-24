@@ -2,7 +2,6 @@ include EarthquakeCsv
 Earthquake.delete_all
 file = open_csv
 file.each do |row|
-  puts row
   earthquake = Earthquake.new
   earthquake.time = row["time"]
   earthquake.latitude = row["latitude"]
