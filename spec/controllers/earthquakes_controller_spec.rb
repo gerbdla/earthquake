@@ -63,9 +63,6 @@ describe V1::EarthquakesController, :type => :controller do
 
       json = JSON.parse(response.body)
 
-      puts json
-      puts json[1][:time]
-
       expect(json.count).to eq(10)
       expect(json[0]["time"]).to eq("06.24.2017 02:26:57 AM")
       expect(json[0]["place"]).to eq( "16km ESE of Lake Isabella, CA")
