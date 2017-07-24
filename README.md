@@ -1,7 +1,10 @@
 Rails Api Version Of Earthquake Counter
 ===========================
 
-
+##Description
+Earthquake counter will return n number of earthquakes within a givin timeframe closed to Los Angeles with the earliest occurrences up to the number supplied.
+It is designed as an api that will return a json structured list of earthquakes that fit the criteria from an imported 
+csv file.
 
 ## Getting Started
 
@@ -35,5 +38,3 @@ Rails Api Version Of Earthquake Counter
    $ bin/rspec
    ... 0 failures
    ```
-
-
