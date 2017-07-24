@@ -26,13 +26,19 @@ csv file.
     $ rake db:create RAILS_ENV=test
     ```
 
-4. Seed the test db
+4. Run migration
+    ```
+    $ rake db:migrate RAILS_ENV=test
+    ```
+
+
+5. Seed the test db
     ```
     $ rake db:seed RAILS_ENV=test
     ```
 
 
-5. Watch the specs pass
+6. Watch the specs pass
 
    ```
    $ bin/rspec
