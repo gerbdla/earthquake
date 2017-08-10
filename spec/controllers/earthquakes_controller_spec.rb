@@ -64,10 +64,10 @@ describe V1::EarthquakesController, :type => :controller do
       json = JSON.parse(response.body)
 
       expect(json.count).to eq(10)
-      expect(json[0]["time"]).to eq("06.24.2017 02:26:57 AM")
-      expect(json[0]["place"]).to eq( "16km ESE of Lake Isabella, CA")
-      expect(json[0]["distance_from_los_angeles"]).to eq("66 miles")
-      expect(json[0]["magnitude"]).to eq(1.24)
+      expect(json[0]["time"]).to eq("07.11.2017 12:23:34 AM")
+      expect(json[0]["place"]).to eq( "2km ESE of Loma Linda, CA")
+      expect(json[0]["distance_from_los_angeles"]).to eq("71 miles")
+      expect(json[0]["magnitude"]).to eq(1.21)
 
     end
 

@@ -62,7 +62,6 @@ class Earthquake < ApplicationRecord
     end
 
     def create_record(earthquake_container_hash, row, distance, earthquake_container_array)
-      earthquake_container_hash["key"] = row.earthquake_id
       earthquake_container_hash["time"] = row.time.strftime("%m.%d.%Y %r")
       earthquake_container_hash["place"] = row.place
       earthquake_container_hash["magnitude"] = row.mag

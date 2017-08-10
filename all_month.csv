@@ -9143,5 +9143,5 @@ time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,
 2017-06-16T20:05:19.230Z,35.4306667,-120.574,-0.48,1.37,md,21,59,0.03261,0.09,nc,nc72817131,2017-06-17T03:06:31.336Z,"5km NE of Santa Margarita, California",quarry blast,0.23,31.61,0.378,12,reviewed,nc,nc
 2017-06-16T19:59:19.930Z,44.7708333,-111.0258333,7.61,0.94,md,12,147,0.01813,0.16,uu,uu60204307,2017-06-16T20:42:10.230Z,"13km NNE of West Yellowstone, Montana",earthquake,0.48,0.96,0.364,9,reviewed,uu,uu
 2017-06-16T19:56:28.410Z,44.7768333,-111.0286667,6.42,0.74,md,7,186,0.02373,0.12,uu,uu60204302,2017-06-16T20:40:32.290Z,"14km NNE of West Yellowstone, Montana",earthquake,0.64,0.95,0.272,4,reviewed,uu,uu
-2017-06-16T19:53:55.130Z,38.8431664,-122.8296661,1.5,0.43,md,7,122,0.006446,0.01,nc,nc72817126,2017-06-16T22:15:03.465Z,"9km WNW of Cobb, California",earthquake,0.41,0.76,0.15,2,automatic,nc,nc
+2017-06-16T19:53:55.130Z,38.8431664,-122.8296661,1.5,0.43,md,7,122,0.006446,0.01,nc,nc72817126,2017-06-16T22:15:03.465Z,"9km WNW of Cobb, California",earthquake,0.41,0.76,0.15,2,automaic,nc,nc
 2017-06-16T19:51:25.917Z,60.641,-148.0086,10.4,2.4,ml,,,,0.72,ak,ak16192305,2017-07-11T22:09:03.040Z,"39km ESE of Whittier, Alaska",earthquake,,0.3,,,automatic,ak,ak
