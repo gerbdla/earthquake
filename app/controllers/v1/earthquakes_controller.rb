@@ -2,27 +2,29 @@ module V1
   class EarthquakesController < ApplicationController
 
     def earthquake
-      @json = JSON.parse(request.body.read)
+
       earthquake = Earthquake.new
 
-      if @json["earthquakes"]["begin_date"].blank? or @json["earthquakes"]["end_date"].blank?
+      #no data was sent so set the date to a month back from today
+      if params["begin_date"].blank? or params["end_date"].blank?
         begin_date = (Date.today - 30.days)
         end_date = Date.today
       else
-        begin_date = Date.strptime(@json["earthquakes"]["begin_date"], "%m/%d/%Y")
-        end_date = Date.strptime(@json["earthquakes"]["end_date"], "%m/%d/%Y")
+        begin_date = Date.strptime(params["begin_date"], "%m/%d/%Y")
+        end_date = Date.strptime(params["end_date"], "%m/%d/%Y")
       end
 
-      number_of_earthquakes = @json["earthquakes"]["number"]
-      number_of_days = TimeDifference.between(begin_date, end_date).in_days
+      number_of_earthquakes = params["number"].to_i
 
       earthquakes =  earthquake.earthquakes_felt(number_of_earthquakes, begin_date, end_date)
 
-      respond_to do |format|
-        format.any(:json, :json) do
-          render json: earthquakes.to_json
-        end
-      end
+
+      puts "here"
+      puts number_of_earthquakes
+      puts begin_date
+      puts end_date
+      render json: earthquakes
+
     end
   end
 end
