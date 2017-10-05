@@ -38,7 +38,10 @@ csv file.
     ```
 
 
-6. Watch the specs pass
+## Notes on Specs
+## I need to re-write the tests to represent the more restfull interface.
+
+6. Watch the specs pass 
 
    ```
    $ bin/rspec
